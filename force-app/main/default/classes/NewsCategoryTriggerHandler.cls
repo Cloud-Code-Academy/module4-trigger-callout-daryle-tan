@@ -12,6 +12,15 @@ public with sharing class NewsCategoryTriggerHandler {
         // TODO: Implement insert handler
         // - Filter categories that need to be synced (Sync__c = true)
         // - Call queueable method for callouts
+        List<News_Category__c> categoriesToSync = new List<News_Category__c>();
+        for (News_Category__c category : newRecords) {
+            if (category.Sync__c) {
+                categoriesToSync.add(category);
+            }
+        }
+        if (!categoriesToSync.isEmpty()) {
+            syncCategoriesWithQueueable(categoriesToSync);
+        }
     }
     
     /**
@@ -24,6 +33,16 @@ public with sharing class NewsCategoryTriggerHandler {
         // TODO: Implement update handler
         // - Filter categories that need to be synced (Sync__c changed from false to true)
         // - Call queueable method for callouts
+        List<News_Category__c> categoriesToSync = new List<News_Category__c>();
+        for (News_Category__c category : newRecords) {
+            News_Category__c oldCategory = oldMap.get(category.Id);
+            if (category.Sync__c && !oldCategory.Sync__c) {
+                categoriesToSync.add(category);
+            }
+        }
+        if (!categoriesToSync.isEmpty()) {
+            syncCategoriesWithQueueable(categoriesToSync);
+        }
     }
     
     /**
@@ -33,5 +52,8 @@ public with sharing class NewsCategoryTriggerHandler {
     private static void syncCategoriesWithQueueable(List<News_Category__c> categoriesToSync) {
         // TODO: Implement queueable job enqueuing
         // - Create and enqueue NewsCategoryQueueable job for each category
+        for (News_Category__c category : categoriesToSync) {
+            System.enqueueJob(new NewsCategoryQueueable(category, 1));
+        }
     }
 } 

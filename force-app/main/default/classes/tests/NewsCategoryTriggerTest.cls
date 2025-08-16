@@ -1,7 +1,5 @@
 @IsTest
-private class NewsCategoryTriggerTest {
-    
-    
+private class NewsCategoryTriggerTest { 
     private static void setup() {
         // Create test data
         List<News_Category__c> categories = new List<News_Category__c>{
