@@ -13,10 +13,14 @@ public class NewsAPIResponse {
     public class Article {
         // TODO: Define article fields
         // Example fields:
-        // public String title { get; set; }
-        // public String description { get; set; }
-        // public String url { get; set; }
-        // etc.
+        public Source source { get; set; }
+        public String author { get; set; }
+        public String title { get; set; }
+        public String description { get; set; }
+        public String url { get; set; }
+        public String urlToImage { get; set;}
+        public String publishedAt { get; set;}
+        public String content { get; set; }
     }
     
     /**
@@ -25,8 +29,8 @@ public class NewsAPIResponse {
     public class Source {
         // TODO: Define source fields
         // Example fields:
-        // public String id { get; set; }
-        // public String name { get; set; }
+        public String id { get; set; }
+        public String name { get; set; }
     }
     
     /**
@@ -41,7 +45,16 @@ public class NewsAPIResponse {
         // - Setting article fields from the API response
         // - Handling content length limits if needed
         // - Handling date conversion
-        
-        return null;
+        Article__c article = new Article__c();
+        article.Source__c = apiArticle.source.name;
+        article.Title__c = apiArticle.title;
+        article.Description__c = apiArticle.description;
+        article.Content__c = apiArticle.content;
+        article.Author__c = apiArticle.author;
+        article.url__c = apiArticle.url;
+        article.urlToImage__c = apiArticle.urlToImage;
+        article.Published_At__c = DateTime.valueOfGmt(apiArticle.publishedAt.replace('T', ' ').replace('Z', ''));
+
+        return article;
     }
 } 
