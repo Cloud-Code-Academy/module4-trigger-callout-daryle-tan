@@ -18,7 +18,7 @@ public with sharing class NewsAPIService {
      * @param page Page number for pagination
      * @return NewsAPIResponse The wrapper object containing the API response
      */
-  //
+  
     public static NewsAPIResponse getTopHeadlinesByCategory(String category, Integer page) {
         // TODO: Implement method to fetch headlines by category
         String endpoint = API_ENDPOINT 
