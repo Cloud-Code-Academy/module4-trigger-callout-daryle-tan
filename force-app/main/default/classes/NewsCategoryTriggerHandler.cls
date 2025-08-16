@@ -52,6 +52,8 @@ public with sharing class NewsCategoryTriggerHandler {
     private static void syncCategoriesWithQueueable(List<News_Category__c> categoriesToSync) {
         // TODO: Implement queueable job enqueuing
         // - Create and enqueue NewsCategoryQueueable job for each category
-        System.enqueueJob(new NewsCategoryQueueable(categoriesToSync, 1));
+        for (News_Category__c category : categoriesToSync) {
+            System.enqueueJob(new NewsCategoryQueueable(category, 1));
+        }
     }
 } 
