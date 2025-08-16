@@ -72,7 +72,6 @@ public class NewsCategoryQueueable implements Queueable, Database.AllowsCallouts
             // - Update category with error information
             // - Log error to debug logs
             System.debug('Exception in Queueable: ' + e.getMessage());
-            updatedCategory.Error__c = e.getMessage();
             System.debug('Error: ' + e.getMessage());
             try {
                 update updatedCategory;
