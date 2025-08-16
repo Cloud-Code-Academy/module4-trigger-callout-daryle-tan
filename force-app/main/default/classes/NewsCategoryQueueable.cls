@@ -61,11 +61,7 @@ public class NewsCategoryQueueable implements Queueable, Database.AllowsCallouts
                 update updatedCategory;
                 System.debug('Successfully updated category. Last_Synced__c: ' + updatedCategory.Last_Synced__c);
             } catch (DmlException dmlEx) {
-                System.debug('DML Exception during update: ' + dmlEx.getMessage());
-                for (Integer i = 0; i < dmlEx.getNumDml(); i++) {
-                    System.debug('DML Error[' + i + ']: ' + dmlEx.getDmlMessage(i));
-                }
-                throw dmlEx;
+                System.debug('DML Exception during update: ' + dmlEx.getMessage());        
             }
         } catch (Exception e) {
             // TODO: Handle errors
